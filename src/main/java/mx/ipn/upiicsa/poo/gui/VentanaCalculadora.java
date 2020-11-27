@@ -7,6 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class VentanaCalculadora extends JFrame {
     protected static final Integer CERO = 0;
@@ -33,9 +35,8 @@ public class VentanaCalculadora extends JFrame {
     protected static final int ACTION_EQUAL = 2;
     protected static final int ACTION_CLEAN = 3;
 
-    protected int operador;
-    protected Double valor1;
-    protected Double valor2;
+    protected Integer operador;
+    protected List<Double> valores;
     protected Double resultado;
     protected Calculadora calculadora;
 
@@ -61,10 +62,16 @@ public class VentanaCalculadora extends JFrame {
     protected JButton buttonResta;
     protected JButton buttonIgual;
 
+    protected JPanel basica;
+    protected JPanel cientifica;
+
     public VentanaCalculadora() {
         state = STATE_INIT;
         calculadora = new Calculadora();
+        valores = new ArrayList<>();
+        operador = null;
         initComponents();
+        display.setText("0");
     }
 
     protected void initComponents() {
@@ -73,7 +80,9 @@ public class VentanaCalculadora extends JFrame {
         setResizable(false);
 
         instantiateComponents();
-        buildGrid();
+        buildBasicaGrid();
+        buildGridCientifica();
+        buildMenu();
         initializeListener();
 
         setVisible(true);
@@ -85,7 +94,6 @@ public class VentanaCalculadora extends JFrame {
             public void actionPerformed(ActionEvent actionEvent) {
                 //System.out.println(0);
                 capturarNumero(CERO.toString());
-
             }
         });
         button1.addActionListener(new ActionListener() {
@@ -151,7 +159,10 @@ public class VentanaCalculadora extends JFrame {
         buttonClear.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                limpiarDisplay();
+                valores.clear();
+                display.setText("0");
+                operador=null;
+                state=STATE_INIT;
             }
         });
         buttonSuma.addActionListener(new ActionListener() {
@@ -187,8 +198,7 @@ public class VentanaCalculadora extends JFrame {
         buttonIgual.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                actualizarEstado(ACTION_EQUAL);
-                actualizarDisplay("");
+                clickEquals();
             }
         });
     }
@@ -197,9 +207,9 @@ public class VentanaCalculadora extends JFrame {
         display = new JTextField();
         display.setEditable(false);
         display.setHorizontalAlignment(JTextField.RIGHT);
-//        menu = new JMenuItem();
-//        menu.setText("Calculadora Cientifica");
-        //display.add(menu);
+        menu = new JMenuItem();
+        menu.setText("Calculadora Cientifica");
+        display.add(menu);
         button0 = new JButton("0");
         button1 = new JButton("1");
         button2 = new JButton("2");
@@ -219,10 +229,22 @@ public class VentanaCalculadora extends JFrame {
         buttonResta = new JButton("-");
         buttonIgual = new JButton("=");
 
+        basica = new JPanel();
+        cientifica = new JPanel();
+        JPanel gridsContainer = new JPanel();
+        gridsContainer.setLayout(new BoxLayout(gridsContainer, BoxLayout.X_AXIS));
+        gridsContainer.add(cientifica);
+        gridsContainer.add(basica);
+
+        Container pane = getContentPane();
+        pane.setLayout(new BoxLayout(pane, BoxLayout.Y_AXIS));
+        pane.add(display);
+        pane.add(gridsContainer);
+        cientifica.setVisible(false);
     }
 
-    protected void buildGrid() {
-        Container pane = getContentPane();
+    protected void buildBasicaGrid() {
+        JPanel pane = basica;
         GridBagLayout calculadoraGrid = new GridBagLayout();
         GridBagConstraints calculadoraGridConstraints = new GridBagConstraints();
         pane.setLayout(calculadoraGrid);
@@ -235,7 +257,6 @@ public class VentanaCalculadora extends JFrame {
         calculadoraGridConstraints.gridx = 0;
         calculadoraGridConstraints.gridy = 0;
         calculadoraGridConstraints.gridwidth = 40;
-        pane.add(display, calculadoraGridConstraints);
 
         calculadoraGridConstraints.gridx = 0;
         calculadoraGridConstraints.gridy = 1;
@@ -333,63 +354,111 @@ public class VentanaCalculadora extends JFrame {
 
     }
 
-    public void actualizarDisplay(String valor) {
-        if (state==STATE_INIT){
-            display.setText(valor);
-        }else if (state == STATE_CAPTURE) {
-            String valorActual = display.getText();
-            display.setText(valorActual + valor);
-        } else if (state == STATE_OPERATOR) {
-            String valorString = display.getText();
-            display.setText(valor);
-            valor1 = Double.parseDouble(valorString);
-        } else if (state == STATE_CALCULATE) {
-            String resultadoString = null;
-            String valorString = display.getText();
-            valor2 = Double.parseDouble(valorString);
-            try {
-                resultado = calculadora.calculate(operador, valor1, valor2);
-                resultadoString = resultado.toString();
-            } catch (DivZeroException e) {
-                resultadoString = "Syntax Error";
-                actualizarEstado(ACTION_CLEAN);
-                JOptionPane.showMessageDialog(this, "Syntax Error", "Error", JOptionPane.ERROR_MESSAGE);
-            } finally {
-                display.setText(resultadoString);
+    protected void buildGridCientifica() {
+        JPanel pane = cientifica;
+
+
+        pane.add(new JButton("label"));
+
+    }
+
+    protected void buildMenu(){
+        //Create the menu bar.
+        JMenuBar menuBar = new JMenuBar();
+
+//Build the first menu.
+        JMenu menu = new JMenu("Modo");
+        menuBar.add(menu);
+
+//a group of JMenuItems
+        JMenuItem menuItem = new JMenuItem("basica");
+        menuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                cientifica.setVisible(false);
             }
-            display.setText(resultado.toString());
-        }
+        });
+        JMenuItem menuItem2 = new JMenuItem("cientifica");
+        menuItem2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                cientifica.setVisible(true);
+            }
+        });
+
+        menu.add(menuItem);
+        menu.add(menuItem2);
+        setJMenuBar(menuBar);
+    }
+
+    public void actualizarDisplay(String valor) {
+        String valorActual = display.getText();
+        display.setText(valorActual + valor);
     }
 
     public void limpiarDisplay() {
         display.setText(EMPTY_STRING);
-        actualizarEstado(ACTION_CLEAN);
-    }
-
-    protected void actualizarEstado(int action) {
-        if (action == ACTION_CLEAN) {
-            state = STATE_INIT;
-        } else if (state == STATE_INIT && action == ACTION_NUMBER || state == STATE_OPERATOR && action == ACTION_NUMBER || state == STATE_CALCULATE && action == ACTION_NUMBER) {
-            state = STATE_CAPTURE;
-        } else if (state == STATE_CAPTURE && action == ACTION_OPERATOR || state == STATE_CALCULATE && action == ACTION_OPERATOR) {
-            state = STATE_OPERATOR;
-        } else if (state == STATE_CAPTURE && action == ACTION_EQUAL) {
-            state = STATE_CALCULATE;
-        }
     }
 
     protected void capturarNumero(String numero) {
-        actualizarDisplay(numero);
-        actualizarEstado(ACTION_NUMBER);
+        if (state == STATE_INIT) {
+            display.setText("");
+            actualizarDisplay(numero);
+            state = STATE_CAPTURE;
+        } else if (state == STATE_CAPTURE) {
+            actualizarDisplay(numero);
+        } else if (state == STATE_OPERATOR) {
+            display.setText("");
+            actualizarDisplay(numero);
+            state = STATE_CAPTURE;
+        } else if (state == STATE_CALCULATE) {
+            actualizarDisplay(numero);
+            valores.clear();
+            operador = null;
+            state = STATE_CAPTURE;
+        }
     }
 
     protected void capturarOperador(int operator) {
-        setOperador(operator);
-        actualizarEstado(ACTION_OPERATOR);
+        if (state == STATE_INIT) {
+            valores.add(Double.valueOf(display.getText()));
+            setOperador(operator);
+            state = STATE_OPERATOR;
+        } else if (state == STATE_CAPTURE) {
+            valores.add(Double.valueOf(display.getText()));
+            setOperador(operator);
+            state = STATE_OPERATOR;
+        } else if (state == STATE_CALCULATE) {
+            valores.clear();
+            valores.add(Double.valueOf(display.getText()));
+            setOperador(operator);
+            state = STATE_OPERATOR;
+        } else if (state == STATE_OPERATOR) {
+            setOperador(operator);
+        }
     }
 
-    protected void asignarOperador(int operador) {
+    protected void clickEquals() {
+        if (state == STATE_CAPTURE) {
+            if (getOperador() != null) {
+                valores.add(Double.valueOf(display.getText()));
+                Double resultado = compute();
+                display.setText("");
+                actualizarDisplay(resultado.toString());
+                valores.clear();
+                operador = null;
+                state = STATE_CALCULATE;
+            }
+        }
+    }
 
+    protected Double compute() {
+        try {
+            return calculadora.calculate(operador, valores);
+        } catch (DivZeroException e) {
+            JOptionPane.showMessageDialog(this, "Syntax Error", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return 0.0;
     }
 
     @Override
@@ -402,28 +471,20 @@ public class VentanaCalculadora extends JFrame {
         this.state = state;
     }
 
-    public int getOperador() {
+    public Integer getOperador() {
         return operador;
     }
 
-    public void setOperador(int operador) {
+    public void setOperador(Integer operador) {
         this.operador = operador;
     }
 
-    public Double getValor1() {
-        return valor1;
+    public List<Double> getValores() {
+        return valores;
     }
 
-    public void setValor1(Double valor1) {
-        this.valor1 = valor1;
-    }
-
-    public Double getValor2() {
-        return valor2;
-    }
-
-    public void setValor2(Double valor2) {
-        this.valor2 = valor2;
+    public void setValores(List<Double> valores) {
+        this.valores = valores;
     }
 
     public Double getResultado() {

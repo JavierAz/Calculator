@@ -12,7 +12,6 @@ public class CalculadoraCientifica extends Calculadora{
             case OPERATOR_SENO:
                 resultado=seno(operands);
                 break;
-
             case OPERATOR_COSENO:
                 break;
             default:
@@ -22,11 +21,19 @@ public class CalculadoraCientifica extends Calculadora{
         return resultado;
     }
 
-    public Double seno(List<Double> number) {
+    public double seno(List<Double> numbers){
+        double resultado=0;
+        for (Double number: numbers){
+            resultado=seno(number);
+        }
+        return resultado;
+    }
+
+    public double seno(Double number) {
         return Math.sin(number);
     }
 
-    public Double coseno(Double numero){
+    public double coseno(Double numero){
         return Math.cos(numero);
     }
 

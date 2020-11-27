@@ -1,7 +1,6 @@
 package mx.ipn.upiicsa.poo.gui;
 
-import mx.ipn.upiicsa.poo.bs.Calculadora;
-import mx.ipn.upiicsa.poo.exception.DivZeroException;
+import mx.ipn.upiicsa.poo.bs.CalculadoraCientifica;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,8 +26,9 @@ public class VentanaCalculadoraCientifica extends VentanaCalculadora {
     private JButton buttonTangente;
     private JButton buttonE;
     private JButton buttonPi;
+    private CalculadoraCientifica calculadoraCientifica;
 
-    public VentanaCalculadoraCientifica(){
+    public VentanaCalculadoraCientifica() {
         super();
     }
 
@@ -39,7 +39,7 @@ public class VentanaCalculadoraCientifica extends VentanaCalculadora {
         setResizable(false);
 
         instantiateComponents();
-        buildGrid();
+        buildBasicaGrid();
         initializeListener();
 
         setVisible(true);
@@ -48,12 +48,19 @@ public class VentanaCalculadoraCientifica extends VentanaCalculadora {
     @Override
     protected void initializeListener() {
         super.initializeListener();
+
+        buttonSeno.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                capturarOperador(calculadoraCientifica.OPERATOR_SENO);
+                actualizarDisplay("");
+            }
+        });
     }
 
     @Override
     protected void instantiateComponents() {
         super.instantiateComponents();
-
         buttonEquisCuadrada = new JButton("X²");
         buttonEquisCubica = new JButton("X³");
         buttonEquisY = new JButton("X^y");
@@ -74,7 +81,7 @@ public class VentanaCalculadoraCientifica extends VentanaCalculadora {
     }
 
     @Override
-    protected void buildGrid() {
+    protected void buildBasicaGrid() {
         Container pane = getContentPane();
         GridBagLayout calculadoraGrid = new GridBagLayout();
         GridBagConstraints calculadoraGridConstraints = new GridBagConstraints();
@@ -258,7 +265,7 @@ public class VentanaCalculadoraCientifica extends VentanaCalculadora {
 
         //bloque 5
         calculadoraGridConstraints.gridx = 4;
-        calculadoraGridConstraints.gridy = 5    ;
+        calculadoraGridConstraints.gridy = 5;
         pane.add(buttonPi, calculadoraGridConstraints);
         buttonPi.setBackground(new Color(91, 86, 85));
 
@@ -277,5 +284,10 @@ public class VentanaCalculadoraCientifica extends VentanaCalculadora {
         calculadoraGridConstraints.gridx = 9;
         calculadoraGridConstraints.gridy = 5;
         pane.add(buttonIgual, calculadoraGridConstraints);
+    }
+
+    @Override
+    protected void capturarOperador(int operator) {
+        setOperador(operator);
     }
 }
