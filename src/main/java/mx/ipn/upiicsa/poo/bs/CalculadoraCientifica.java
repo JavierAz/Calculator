@@ -10,6 +10,7 @@ public class CalculadoraCientifica extends Calculadora{
         Double resultado=0.0;
         switch (operator){
             case OPERATOR_SENO:
+                System.out.println("---> valor de operand" + operands.get(0));
                 resultado=seno(operands);
                 break;
             case OPERATOR_COSENO:
@@ -29,7 +30,7 @@ public class CalculadoraCientifica extends Calculadora{
         return resultado;
     }
 
-    public double seno(Double number) {
+    public Double seno(Double number) {
         return Math.sin(number);
     }
 

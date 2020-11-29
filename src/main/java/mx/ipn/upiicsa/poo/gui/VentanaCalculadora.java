@@ -1,6 +1,7 @@
 package mx.ipn.upiicsa.poo.gui;
 
 import mx.ipn.upiicsa.poo.bs.Calculadora;
+import mx.ipn.upiicsa.poo.bs.CalculadoraCientifica;
 import mx.ipn.upiicsa.poo.exception.DivZeroException;
 
 import javax.swing.*;
@@ -22,6 +23,8 @@ public class VentanaCalculadora extends JFrame {
     protected static final Integer OCHO = 8;
     protected static final Integer NUEVE = 9;
     protected static final String PUNTO = ".";
+    protected static final Double E = Math.E;
+    protected static final Double PI = Math.PI;
     protected static final String EMPTY_STRING = "";
 
     protected static final int STATE_INIT = 0;
@@ -39,6 +42,7 @@ public class VentanaCalculadora extends JFrame {
     protected List<Double> valores;
     protected Double resultado;
     protected Calculadora calculadora;
+    protected CalculadoraCientifica calculadoraCientifica;
 
     protected JMenuItem menu;
 
@@ -62,12 +66,31 @@ public class VentanaCalculadora extends JFrame {
     protected JButton buttonResta;
     protected JButton buttonIgual;
 
+    private JButton buttonEquisCuadrada;
+    private JButton buttonEquisCubica;
+    private JButton buttonEquisY;
+    private JButton buttonEalaX;
+    private JButton button10alaX;
+    private JButton button1sobreX;
+    private JButton buttonRaizCuadrada;
+    private JButton buttonRaizCubica;
+    private JButton buttonRaizdeY;
+    private JButton buttonLogNatural;
+    private JButton buttonLogBase10;
+    private JButton buttonFactorial;
+    private JButton buttonSeno;
+    private JButton buttonCoseno;
+    private JButton buttonTangente;
+    private JButton buttonE;
+    private JButton buttonPi;
+
     protected JPanel basica;
     protected JPanel cientifica;
 
     public VentanaCalculadora() {
         state = STATE_INIT;
         calculadora = new Calculadora();
+        calculadoraCientifica = new CalculadoraCientifica();
         valores = new ArrayList<>();
         operador = null;
         initComponents();
@@ -201,6 +224,167 @@ public class VentanaCalculadora extends JFrame {
                 clickEquals();
             }
         });
+        buttonSeno.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                //capturarOperador(calculadoraCientifica.OPERATOR_SENO);
+                valores.add(Double.valueOf(display.getText()));
+                setOperador(calculadora.OPERATOR_SENO);
+                state=STATE_CAPTURE;
+                //System.out.println("listener seno " +valores+" ");
+                clickEquals();
+            }
+        });
+        buttonFactorial.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                //capturarOperador(calculadoraCientifica.OPERATOR_SENO);
+                valores.add(Double.valueOf(display.getText()));
+                setOperador(calculadora.OPERATOR_FACTORIAL);
+                state=STATE_CAPTURE;
+                //System.out.println("listener seno " +valores+" ");
+                clickEquals();
+            }
+        });
+        buttonE.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                display.setText("");
+                capturarNumero(E.toString());
+            }
+        });
+        buttonPi.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                display.setText("");
+                capturarNumero(PI.toString());
+            }
+        });
+        buttonCoseno.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                //capturarOperador(calculadoraCientifica.OPERATOR_SENO);
+                valores.add(Double.valueOf(display.getText()));
+                setOperador(calculadora.OPERATOR_COSENO);
+                state=STATE_CAPTURE;
+                //System.out.println("listener seno " +valores+" ");
+                clickEquals();
+            }
+        });
+        buttonEquisCuadrada.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                //capturarOperador(calculadoraCientifica.OPERATOR_SENO);
+                valores.add(Double.valueOf(display.getText()));
+                setOperador(calculadora.OPERATOR_CUADRADO);
+                state=STATE_CAPTURE;
+                //System.out.println("listener seno " +valores+" ");
+                clickEquals();
+            }
+        });
+        buttonEquisCubica.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                //capturarOperador(calculadoraCientifica.OPERATOR_SENO);
+                valores.add(Double.valueOf(display.getText()));
+                setOperador(calculadora.OPERATOR_CUBO);
+                state=STATE_CAPTURE;
+                //System.out.println("listener seno " +valores+" ");
+                clickEquals();
+            }
+        });
+        buttonEquisY.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                capturarOperador(calculadora.OPERATOR_XALAY);
+            }
+        });
+        buttonEalaX.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                valores.add(Double.valueOf(display.getText()));
+                setOperador(calculadora.OPERATOR_EALAX);
+                state=STATE_CAPTURE;
+                //System.out.println("listener seno " +valores+" ");
+                clickEquals();
+            }
+        });
+        button10alaX.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                //capturarOperador(calculadoraCientifica.OPERATOR_SENO);
+                valores.add(Double.valueOf(display.getText()));
+                setOperador(calculadora.OPERATOR_10ALAX);
+                state=STATE_CAPTURE;
+                //System.out.println("listener seno " +valores+" ");
+                clickEquals();
+            }
+        });
+        button1sobreX.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                //capturarOperador(calculadoraCientifica.OPERATOR_SENO);
+                valores.add(Double.valueOf(display.getText()));
+                setOperador(calculadora.OPERATOR_1SOBREX);
+                state=STATE_CAPTURE;
+                //System.out.println("listener seno " +valores+" ");
+                clickEquals();
+            }
+        });
+        buttonRaizCuadrada.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                valores.add(Double.valueOf(display.getText()));
+                setOperador(calculadora.OPERATOR_RAIZCUADRADA);
+                state=STATE_CAPTURE;
+                clickEquals();
+            }
+        });
+        buttonRaizCubica.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                valores.add(Double.valueOf(display.getText()));
+                setOperador(calculadora.OPERATOR_RAIZCUBICA);
+                state=STATE_CAPTURE;
+                clickEquals();
+            }
+        });
+        buttonRaizdeY.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                valores.add(Double.valueOf(display.getText()));
+                setOperador(calculadora.OPERATOR_RAIZDEY);
+                state=STATE_CAPTURE;
+                clickEquals();
+            }
+        });
+        buttonLogNatural.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                valores.add(Double.valueOf(display.getText()));
+                setOperador(calculadora.OPERATOR_LOGN);
+                state=STATE_CAPTURE;
+                clickEquals();
+            }
+        });
+        buttonLogBase10.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                valores.add(Double.valueOf(display.getText()));
+                setOperador(calculadora.OPERATOR_LOG10);
+                state=STATE_CAPTURE;
+                clickEquals();
+            }
+        });
+        buttonTangente.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                valores.add(Double.valueOf(display.getText()));
+                setOperador(calculadora.OPERATOR_TAN);
+                state=STATE_CAPTURE;
+                clickEquals();
+            }
+        });
     }
 
     protected void instantiateComponents() {
@@ -228,6 +412,24 @@ public class VentanaCalculadora extends JFrame {
         buttonSuma = new JButton("+");
         buttonResta = new JButton("-");
         buttonIgual = new JButton("=");
+
+        buttonEquisCuadrada = new JButton("X²");
+        buttonEquisCubica = new JButton("X³");
+        buttonEquisY = new JButton("X^y");
+        buttonEalaX = new JButton("e^x");
+        button10alaX = new JButton("10^x");
+        button1sobreX = new JButton("1/x");
+        buttonRaizCuadrada = new JButton("sqrt");
+        buttonRaizCubica = new JButton("sqrt3");
+        buttonRaizdeY = new JButton("sqrtY");
+        buttonLogNatural = new JButton("ln");
+        buttonLogBase10 = new JButton("log10");
+        buttonFactorial = new JButton("x!");
+        buttonSeno = new JButton("sin");
+        buttonCoseno = new JButton("cos");
+        buttonTangente = new JButton("tan");
+        buttonE = new JButton("e");
+        buttonPi = new JButton("pi");
 
         basica = new JPanel();
         cientifica = new JPanel();
@@ -356,10 +558,109 @@ public class VentanaCalculadora extends JFrame {
 
     protected void buildGridCientifica() {
         JPanel pane = cientifica;
+        GridBagLayout calculadoraGrid = new GridBagLayout();
+        GridBagConstraints calculadoraGridConstraints = new GridBagConstraints();
+        pane.setLayout(calculadoraGrid);
+
+        calculadoraGridConstraints.fill = GridBagConstraints.HORIZONTAL;
+        calculadoraGridConstraints.weightx = 0.5;
+        calculadoraGridConstraints.ipady = 40;
 
 
-        pane.add(new JButton("label"));
+        calculadoraGridConstraints.gridwidth = 1;
+        calculadoraGridConstraints.gridx = 0;
+        calculadoraGridConstraints.gridy = 1;
+        pane.add(button1sobreX, calculadoraGridConstraints);
+        button1sobreX.setBackground(Color.darkGray);
 
+        //bloque 2
+        calculadoraGridConstraints.gridx = 1;
+        calculadoraGridConstraints.gridy = 2;
+        pane.add(buttonEquisCuadrada, calculadoraGridConstraints);
+        buttonEquisCuadrada.setBackground(new Color(91, 86, 85));
+
+        calculadoraGridConstraints.gridx = 2;
+        calculadoraGridConstraints.gridy = 2;
+        pane.add(buttonEquisCubica, calculadoraGridConstraints);
+        buttonEquisCubica.setBackground(new Color(91, 86, 85));
+
+        calculadoraGridConstraints.gridx = 3;
+        calculadoraGridConstraints.gridy = 2;
+        pane.add(buttonEquisY, calculadoraGridConstraints);
+        buttonEquisY.setBackground(new Color(91, 86, 85));
+
+        calculadoraGridConstraints.gridx = 4;
+        calculadoraGridConstraints.gridy = 2;
+        pane.add(buttonEalaX, calculadoraGridConstraints);
+        buttonEalaX.setBackground(new Color(91, 86, 85));
+
+        calculadoraGridConstraints.gridx = 5;
+        calculadoraGridConstraints.gridy = 2;
+        pane.add(button10alaX, calculadoraGridConstraints);
+        button10alaX.setBackground(new Color(91, 86, 85));
+
+        //bloque 3
+        calculadoraGridConstraints.gridx = 0;
+        calculadoraGridConstraints.gridy = 3;
+        pane.add(button1sobreX, calculadoraGridConstraints);
+        button1sobreX.setBackground(new Color(91, 86, 85));
+
+        calculadoraGridConstraints.gridx = 1;
+        calculadoraGridConstraints.gridy = 3;
+        pane.add(buttonRaizCuadrada, calculadoraGridConstraints);
+        buttonRaizCuadrada.setBackground(new Color(91, 86, 85));
+
+        calculadoraGridConstraints.gridx = 2;
+        calculadoraGridConstraints.gridy = 3;
+        pane.add(buttonRaizCubica, calculadoraGridConstraints);
+        buttonRaizCubica.setBackground(new Color(91, 86, 85));
+
+        calculadoraGridConstraints.gridx = 3;
+        calculadoraGridConstraints.gridy = 3;
+        pane.add(buttonRaizdeY, calculadoraGridConstraints);
+        buttonRaizdeY.setBackground(new Color(91, 86, 85));
+
+        calculadoraGridConstraints.gridx = 4;
+        calculadoraGridConstraints.gridy = 3;
+        pane.add(buttonLogNatural, calculadoraGridConstraints);
+        buttonLogNatural.setBackground(new Color(91, 86, 85));
+
+        calculadoraGridConstraints.gridx = 5;
+        calculadoraGridConstraints.gridy = 3;
+        pane.add(buttonLogBase10, calculadoraGridConstraints);
+        buttonLogBase10.setBackground(new Color(91, 86, 85));
+
+        //bloque 4
+        calculadoraGridConstraints.gridx = 0;
+        calculadoraGridConstraints.gridy = 4;
+        pane.add(buttonFactorial, calculadoraGridConstraints);
+        buttonFactorial.setBackground(new Color(91, 86, 85));
+
+        calculadoraGridConstraints.gridx = 1;
+        calculadoraGridConstraints.gridy = 4;
+        pane.add(buttonSeno, calculadoraGridConstraints);
+        buttonSeno.setBackground(new Color(91, 86, 85));
+
+        calculadoraGridConstraints.gridx = 2;
+        calculadoraGridConstraints.gridy = 4;
+        pane.add(buttonCoseno, calculadoraGridConstraints);
+        buttonCoseno.setBackground(new Color(91, 86, 85));
+
+        calculadoraGridConstraints.gridx = 3;
+        calculadoraGridConstraints.gridy = 4;
+        pane.add(buttonTangente, calculadoraGridConstraints);
+        buttonTangente.setBackground(new Color(91, 86, 85));
+
+        calculadoraGridConstraints.gridx = 4;
+        calculadoraGridConstraints.gridy = 4;
+        pane.add(buttonE, calculadoraGridConstraints);
+        buttonE.setBackground(new Color(91, 86, 85));
+
+        //bloque 5
+        calculadoraGridConstraints.gridx = 4;
+        calculadoraGridConstraints.gridy = 5;
+        pane.add(buttonPi, calculadoraGridConstraints);
+        buttonPi.setBackground(new Color(91, 86, 85));
     }
 
     protected void buildMenu(){
@@ -376,6 +677,7 @@ public class VentanaCalculadora extends JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 cientifica.setVisible(false);
+                setSize(500, 430);
             }
         });
         JMenuItem menuItem2 = new JMenuItem("cientifica");
@@ -383,6 +685,7 @@ public class VentanaCalculadora extends JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 cientifica.setVisible(true);
+                setSize(650, 430);
             }
         });
 
