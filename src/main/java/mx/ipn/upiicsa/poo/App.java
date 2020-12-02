@@ -1,8 +1,6 @@
 package mx.ipn.upiicsa.poo;
 
-import mx.ipn.upiicsa.poo.bs.Calculadora;
 import mx.ipn.upiicsa.poo.gui.VentanaCalculadora;
-import mx.ipn.upiicsa.poo.gui.VentanaCalculadoraCientifica;
 
 /**
  * Hello world!

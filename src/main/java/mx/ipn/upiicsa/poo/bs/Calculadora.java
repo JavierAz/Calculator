@@ -25,11 +25,9 @@ public class Calculadora {
     public static final int OPERATOR_LOGN = 18;
     public static final int OPERATOR_LOG10 = 19;
     public static final int OPERATOR_TAN = 20;
-    public static final int OPERATOR_E = 21;
-    public static final int OPERATOR_PI = 22;
 
     public Double calculate(int operator, List<Double> operands) throws DivZeroException {
-        Double resultado;
+        double resultado;
         switch (operator) {
             case OPERATOR_SUMA:
                 resultado = suma(operands);
@@ -92,12 +90,7 @@ public class Calculadora {
             case OPERATOR_TAN:
                 resultado = tan(operands);
                 break;
-            case OPERATOR_E:
-                resultado = factorial(operands);
-                break;
-            case OPERATOR_PI:
-                resultado = factorial(operands);
-                break;
+
             default:
                 resultado = -1.0;
                 break;
@@ -114,7 +107,7 @@ public class Calculadora {
     }
 
     public double resta(List<Double> values) {
-        double resultado = 0.0;
+        double resultado;
         resultado = resta(values.get(0), values.get(1));
         return resultado;
     }
@@ -167,7 +160,7 @@ public class Calculadora {
     }
 
     public double seno(List<Double> numbers) {
-        double resultado = 0;
+        double resultado;
         resultado = seno(numbers.get(0));
         System.out.println("resultado: " + resultado);
         return resultado;
@@ -177,88 +170,88 @@ public class Calculadora {
         return Math.sin(number);
     }
 
-    public double coseno(List<Double> numero){
+    public double coseno(List<Double> numero) {
         return Math.cos(numero.get(0));
     }
 
-    public double factorial(List<Double> numero){
-        double resultado=1.0;
+    public double factorial(List<Double> numero) {
+        double resultado = 1.0;
         for (double i = numero.get(0); i > 0; i--) {
-            System.out.println("---> valor del numero: "+i);
-            resultado=resultado*i;
+            System.out.println("---> valor del numero: " + i);
+            resultado = resultado * i;
         }
         return resultado;
     }
 
-    public double cuadrado(List<Double> numbers){
+    public double cuadrado(List<Double> numbers) {
         double resultado;
-        resultado=Math.pow(numbers.get(0), 2);
+        resultado = Math.pow(numbers.get(0), 2);
         return resultado;
     }
 
-    public double cubo(List<Double> numbers){
+    public double cubo(List<Double> numbers) {
         double resultado;
-        resultado=Math.pow(numbers.get(0), 3);
+        resultado = Math.pow(numbers.get(0), 3);
         return resultado;
     }
 
-    public double xAlaY(List<Double> numbers){
+    public double xAlaY(List<Double> numbers) {
         double resultado;
-        resultado=Math.pow(numbers.get(0), numbers.get(1));
+        resultado = Math.pow(numbers.get(0), numbers.get(1));
         return resultado;
     }
 
-    public double ealaX(List<Double> numbers){
+    public double ealaX(List<Double> numbers) {
         double resultado;
-        resultado=Math.pow(Math.E, numbers.get(0));
+        resultado = Math.pow(Math.E, numbers.get(0));
         return resultado;
     }
 
-    public double alaX(List<Double> numbers){
+    public double alaX(List<Double> numbers) {
         double resultado;
-        resultado=Math.pow(10, numbers.get(0));
+        resultado = Math.pow(10, numbers.get(0));
         return resultado;
     }
 
-    public double sobreX(List<Double> numbers){
+    public double sobreX(List<Double> numbers) {
         double resultado;
-        resultado=1/numbers.get(0);
+        resultado = 1 / numbers.get(0);
         return resultado;
     }
 
-    public double raizCuadrada(List<Double> numbers){
+    public double raizCuadrada(List<Double> numbers) {
         double resultado;
         resultado = Math.sqrt(numbers.get(0));
         return resultado;
     }
 
-    public double raizCubica(List<Double> numbers){
+    public double raizCubica(List<Double> numbers) {
         double resultado;
         resultado = Math.cbrt(numbers.get(0));
         return resultado;
     }
 
-    public double raizdeY(List<Double> numbers){
+    public double raizdeY(List<Double> numbers) {
         double resultado;
-        resultado = Math.pow(numbers.get(0), 1/numbers.get(1));
+        resultado = Math.pow(numbers.get(0), 1 / numbers.get(1));
         return resultado;
     }
 
-    public double logNat(List<Double> numbers){
+    public double logNat(List<Double> numbers) {
         double resultado;
-        resultado =Math.log(numbers.get(0));
-        return  resultado;
+        resultado = Math.log(numbers.get(0));
+        return resultado;
     }
 
-    public double log(List<Double> numbers){
+    public double log(List<Double> numbers) {
         double resultado;
-        resultado =Math.log(numbers.get(0));
-        return  resultado;
+        resultado = Math.log(numbers.get(0));
+        return resultado;
     }
 
-    public double tan(List<Double> numbers){
+    public double tan(List<Double> numbers) {
         double resultado;
-        resultado =Math.tan(numbers.get(0));
+        resultado = Math.tan(numbers.get(0));
         return resultado;
     }
 }

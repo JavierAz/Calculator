@@ -1,8 +1,7 @@
 package mx.ipn.upiicsa.poo.gui;
 
 import mx.ipn.upiicsa.poo.bs.Calculadora;
-import mx.ipn.upiicsa.poo.bs.CalculadoraCientifica;
-import mx.ipn.upiicsa.poo.exception.DivZeroException;
+import mx.ipn.upiicsa.poo.exception.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -42,7 +41,6 @@ public class VentanaCalculadora extends JFrame {
     protected List<Double> valores;
     protected Double resultado;
     protected Calculadora calculadora;
-    protected CalculadoraCientifica calculadoraCientifica;
 
     protected JMenuItem menu;
 
@@ -90,7 +88,6 @@ public class VentanaCalculadora extends JFrame {
     public VentanaCalculadora() {
         state = STATE_INIT;
         calculadora = new Calculadora();
-        calculadoraCientifica = new CalculadoraCientifica();
         valores = new ArrayList<>();
         operador = null;
         initComponents();
@@ -101,13 +98,11 @@ public class VentanaCalculadora extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(500, 430);
         setResizable(false);
-
         instantiateComponents();
         buildBasicaGrid();
         buildGridCientifica();
         buildMenu();
         initializeListener();
-
         setVisible(true);
     }
 
@@ -184,8 +179,8 @@ public class VentanaCalculadora extends JFrame {
             public void actionPerformed(ActionEvent actionEvent) {
                 valores.clear();
                 display.setText("0");
-                operador=null;
-                state=STATE_INIT;
+                operador = null;
+                state = STATE_INIT;
             }
         });
         buttonSuma.addActionListener(new ActionListener() {
@@ -230,7 +225,7 @@ public class VentanaCalculadora extends JFrame {
                 //capturarOperador(calculadoraCientifica.OPERATOR_SENO);
                 valores.add(Double.valueOf(display.getText()));
                 setOperador(calculadora.OPERATOR_SENO);
-                state=STATE_CAPTURE;
+                state = STATE_CAPTURE;
                 //System.out.println("listener seno " +valores+" ");
                 clickEquals();
             }
@@ -241,7 +236,7 @@ public class VentanaCalculadora extends JFrame {
                 //capturarOperador(calculadoraCientifica.OPERATOR_SENO);
                 valores.add(Double.valueOf(display.getText()));
                 setOperador(calculadora.OPERATOR_FACTORIAL);
-                state=STATE_CAPTURE;
+                state = STATE_CAPTURE;
                 //System.out.println("listener seno " +valores+" ");
                 clickEquals();
             }
@@ -266,7 +261,7 @@ public class VentanaCalculadora extends JFrame {
                 //capturarOperador(calculadoraCientifica.OPERATOR_SENO);
                 valores.add(Double.valueOf(display.getText()));
                 setOperador(calculadora.OPERATOR_COSENO);
-                state=STATE_CAPTURE;
+                state = STATE_CAPTURE;
                 //System.out.println("listener seno " +valores+" ");
                 clickEquals();
             }
@@ -277,7 +272,7 @@ public class VentanaCalculadora extends JFrame {
                 //capturarOperador(calculadoraCientifica.OPERATOR_SENO);
                 valores.add(Double.valueOf(display.getText()));
                 setOperador(calculadora.OPERATOR_CUADRADO);
-                state=STATE_CAPTURE;
+                state = STATE_CAPTURE;
                 //System.out.println("listener seno " +valores+" ");
                 clickEquals();
             }
@@ -288,7 +283,7 @@ public class VentanaCalculadora extends JFrame {
                 //capturarOperador(calculadoraCientifica.OPERATOR_SENO);
                 valores.add(Double.valueOf(display.getText()));
                 setOperador(calculadora.OPERATOR_CUBO);
-                state=STATE_CAPTURE;
+                state = STATE_CAPTURE;
                 //System.out.println("listener seno " +valores+" ");
                 clickEquals();
             }
@@ -304,7 +299,7 @@ public class VentanaCalculadora extends JFrame {
             public void actionPerformed(ActionEvent actionEvent) {
                 valores.add(Double.valueOf(display.getText()));
                 setOperador(calculadora.OPERATOR_EALAX);
-                state=STATE_CAPTURE;
+                state = STATE_CAPTURE;
                 //System.out.println("listener seno " +valores+" ");
                 clickEquals();
             }
@@ -315,7 +310,7 @@ public class VentanaCalculadora extends JFrame {
                 //capturarOperador(calculadoraCientifica.OPERATOR_SENO);
                 valores.add(Double.valueOf(display.getText()));
                 setOperador(calculadora.OPERATOR_10ALAX);
-                state=STATE_CAPTURE;
+                state = STATE_CAPTURE;
                 //System.out.println("listener seno " +valores+" ");
                 clickEquals();
             }
@@ -326,7 +321,7 @@ public class VentanaCalculadora extends JFrame {
                 //capturarOperador(calculadoraCientifica.OPERATOR_SENO);
                 valores.add(Double.valueOf(display.getText()));
                 setOperador(calculadora.OPERATOR_1SOBREX);
-                state=STATE_CAPTURE;
+                state = STATE_CAPTURE;
                 //System.out.println("listener seno " +valores+" ");
                 clickEquals();
             }
@@ -336,7 +331,7 @@ public class VentanaCalculadora extends JFrame {
             public void actionPerformed(ActionEvent actionEvent) {
                 valores.add(Double.valueOf(display.getText()));
                 setOperador(calculadora.OPERATOR_RAIZCUADRADA);
-                state=STATE_CAPTURE;
+                state = STATE_CAPTURE;
                 clickEquals();
             }
         });
@@ -345,7 +340,7 @@ public class VentanaCalculadora extends JFrame {
             public void actionPerformed(ActionEvent actionEvent) {
                 valores.add(Double.valueOf(display.getText()));
                 setOperador(calculadora.OPERATOR_RAIZCUBICA);
-                state=STATE_CAPTURE;
+                state = STATE_CAPTURE;
                 clickEquals();
             }
         });
@@ -354,7 +349,7 @@ public class VentanaCalculadora extends JFrame {
             public void actionPerformed(ActionEvent actionEvent) {
                 valores.add(Double.valueOf(display.getText()));
                 setOperador(calculadora.OPERATOR_RAIZDEY);
-                state=STATE_CAPTURE;
+                state = STATE_CAPTURE;
                 clickEquals();
             }
         });
@@ -363,7 +358,7 @@ public class VentanaCalculadora extends JFrame {
             public void actionPerformed(ActionEvent actionEvent) {
                 valores.add(Double.valueOf(display.getText()));
                 setOperador(calculadora.OPERATOR_LOGN);
-                state=STATE_CAPTURE;
+                state = STATE_CAPTURE;
                 clickEquals();
             }
         });
@@ -372,7 +367,7 @@ public class VentanaCalculadora extends JFrame {
             public void actionPerformed(ActionEvent actionEvent) {
                 valores.add(Double.valueOf(display.getText()));
                 setOperador(calculadora.OPERATOR_LOG10);
-                state=STATE_CAPTURE;
+                state = STATE_CAPTURE;
                 clickEquals();
             }
         });
@@ -381,7 +376,7 @@ public class VentanaCalculadora extends JFrame {
             public void actionPerformed(ActionEvent actionEvent) {
                 valores.add(Double.valueOf(display.getText()));
                 setOperador(calculadora.OPERATOR_TAN);
-                state=STATE_CAPTURE;
+                state = STATE_CAPTURE;
                 clickEquals();
             }
         });
@@ -419,9 +414,9 @@ public class VentanaCalculadora extends JFrame {
         buttonEalaX = new JButton("e^x");
         button10alaX = new JButton("10^x");
         button1sobreX = new JButton("1/x");
-        buttonRaizCuadrada = new JButton("sqrt");
-        buttonRaizCubica = new JButton("sqrt3");
-        buttonRaizdeY = new JButton("sqrtY");
+        buttonRaizCuadrada = new JButton("√");
+        buttonRaizCubica = new JButton("3√");
+        buttonRaizdeY = new JButton("y√");
         buttonLogNatural = new JButton("ln");
         buttonLogBase10 = new JButton("log10");
         buttonFactorial = new JButton("x!");
@@ -429,7 +424,7 @@ public class VentanaCalculadora extends JFrame {
         buttonCoseno = new JButton("cos");
         buttonTangente = new JButton("tan");
         buttonE = new JButton("e");
-        buttonPi = new JButton("pi");
+        buttonPi = new JButton("π");
 
         basica = new JPanel();
         cientifica = new JPanel();
@@ -464,96 +459,118 @@ public class VentanaCalculadora extends JFrame {
         calculadoraGridConstraints.gridy = 1;
         calculadoraGridConstraints.gridwidth = 2;
         pane.add(buttonClear, calculadoraGridConstraints);
-        buttonClear.setBackground(Color.darkGray);
+        buttonClear.setBackground(new Color(95,100,104));
+        buttonClear.setForeground(new Color(255,255,255));
 
         calculadoraGridConstraints.gridwidth = 1;
         calculadoraGridConstraints.gridx = 2;
         calculadoraGridConstraints.gridy = 1;
         pane.add(buttonPorcentaje, calculadoraGridConstraints);
-        buttonPorcentaje.setBackground(Color.darkGray);
+        buttonPorcentaje.setBackground(new Color(95,100,104));
+        buttonPorcentaje.setForeground(new Color(255,255,255));
 
         calculadoraGridConstraints.gridx = 3;
         calculadoraGridConstraints.gridy = 1;
         pane.add(buttonDivision, calculadoraGridConstraints);
-        buttonDivision.setBackground(Color.orange);
+        buttonDivision.setBackground(new Color(254, 159, 12));
+        buttonDivision.setForeground(new Color(255,255,255));
 
         //bloque 2
         calculadoraGridConstraints.gridx = 0;
         calculadoraGridConstraints.gridy = 2;
         pane.add(button7, calculadoraGridConstraints);
-        button7.setBackground(new Color(91, 86, 85));
+        button7.setBackground(new Color(134,138,141));
+        button7.setForeground(new Color(255,255,255));
 
         calculadoraGridConstraints.gridx = 1;
         calculadoraGridConstraints.gridy = 2;
         pane.add(button8, calculadoraGridConstraints);
-        button8.setBackground(new Color(91, 86, 85));
+        button8.setBackground(new Color(134,138,141));
+        button8.setForeground(new Color(255,255,255));
 
         calculadoraGridConstraints.gridx = 2;
         calculadoraGridConstraints.gridy = 2;
         pane.add(button9, calculadoraGridConstraints);
-        button9.setBackground(new Color(91, 86, 85));
+        button9.setBackground(new Color(134,138,141));
+        button9.setForeground(new Color(255,255,255));
 
         calculadoraGridConstraints.gridx = 3;
         calculadoraGridConstraints.gridy = 2;
         pane.add(buttonProducto, calculadoraGridConstraints);
+        buttonProducto.setBackground(new Color(254, 159, 12));
+        buttonProducto.setForeground(new Color(255,255,255));
 
         //bloque 3
         calculadoraGridConstraints.gridx = 0;
         calculadoraGridConstraints.gridy = 3;
         pane.add(button4, calculadoraGridConstraints);
-        button4.setBackground(new Color(91, 86, 85));
+        button4.setBackground(new Color(134,138,141));
+        button4.setForeground(new Color(255,255,255));
 
         calculadoraGridConstraints.gridx = 1;
         calculadoraGridConstraints.gridy = 3;
         pane.add(button5, calculadoraGridConstraints);
-        button5.setBackground(new Color(91, 86, 85));
+        button5.setBackground(new Color(134,138,141));
+        button5.setForeground(new Color(255,255,255));
 
         calculadoraGridConstraints.gridx = 2;
         calculadoraGridConstraints.gridy = 3;
         pane.add(button6, calculadoraGridConstraints);
-        button6.setBackground(new Color(91, 86, 85));
+        button6.setBackground(new Color(134,138,141));
+        button6.setForeground(new Color(255,255,255));
 
         calculadoraGridConstraints.gridx = 3;
         calculadoraGridConstraints.gridy = 3;
         pane.add(buttonResta, calculadoraGridConstraints);
+        buttonResta.setBackground(new Color(254, 159, 12));
+        buttonResta.setForeground(new Color(255,255,255));
 
         //bloque 4
         calculadoraGridConstraints.gridx = 0;
         calculadoraGridConstraints.gridy = 4;
         pane.add(button1, calculadoraGridConstraints);
-        button1.setBackground(new Color(91, 86, 85));
+        button1.setBackground(new Color(134,138,141));
+        button1.setForeground(new Color(255,255,255));
 
         calculadoraGridConstraints.gridx = 1;
         calculadoraGridConstraints.gridy = 4;
         pane.add(button2, calculadoraGridConstraints);
-        button2.setBackground(new Color(91, 86, 85));
+        button2.setBackground(new Color(134,138,141));
+        button2.setForeground(new Color(255,255,255));
 
         calculadoraGridConstraints.gridx = 2;
         calculadoraGridConstraints.gridy = 4;
         pane.add(button3, calculadoraGridConstraints);
-        button3.setBackground(new Color(91, 86, 85));
+        button3.setBackground(new Color(134,138,141));
+        button3.setForeground(new Color(255,255,255));
 
         calculadoraGridConstraints.gridx = 3;
         calculadoraGridConstraints.gridy = 4;
         pane.add(buttonSuma, calculadoraGridConstraints);
+        buttonSuma.setBackground(new Color(254, 159, 12));
+        buttonSuma.setForeground(new Color(255,255,255));
 
         //bloque 5
         calculadoraGridConstraints.gridx = 0;
         calculadoraGridConstraints.gridy = 5;
         calculadoraGridConstraints.gridwidth = 2;
         pane.add(button0, calculadoraGridConstraints);
-        button0.setBackground(new Color(91, 86, 85));
+        button0.setBackground(new Color(134,138,141));
+        button0.setForeground(new Color(255,255,255));
 
         calculadoraGridConstraints.gridx = 2;
         calculadoraGridConstraints.gridy = 5;
         calculadoraGridConstraints.gridwidth = 1;
         pane.add(buttonPunto, calculadoraGridConstraints);
-        buttonPunto.setBackground(new Color(91, 86, 85));
+        buttonPunto.setBackground(new Color(134,138,141));
+        buttonPunto.setForeground(new Color(255,255,255));
 
         calculadoraGridConstraints.gridx = 3;
         calculadoraGridConstraints.gridy = 5;
         pane.add(buttonIgual, calculadoraGridConstraints);
-
+        buttonIgual.setBackground(new Color(254, 159, 12));
+        basica.setBackground(new Color(63,62,68));
+        buttonIgual.setForeground(new Color(255,255,255));
     }
 
     protected void buildGridCientifica() {
@@ -566,104 +583,117 @@ public class VentanaCalculadora extends JFrame {
         calculadoraGridConstraints.weightx = 0.5;
         calculadoraGridConstraints.ipady = 40;
 
-
-        calculadoraGridConstraints.gridwidth = 1;
-        calculadoraGridConstraints.gridx = 0;
-        calculadoraGridConstraints.gridy = 1;
-        pane.add(button1sobreX, calculadoraGridConstraints);
-        button1sobreX.setBackground(Color.darkGray);
-
         //bloque 2
         calculadoraGridConstraints.gridx = 1;
         calculadoraGridConstraints.gridy = 2;
         pane.add(buttonEquisCuadrada, calculadoraGridConstraints);
-        buttonEquisCuadrada.setBackground(new Color(91, 86, 85));
+        buttonEquisCuadrada.setBackground(new Color(95,100,104));
+        buttonEquisCuadrada.setForeground(new Color(255,255,255));
 
         calculadoraGridConstraints.gridx = 2;
         calculadoraGridConstraints.gridy = 2;
         pane.add(buttonEquisCubica, calculadoraGridConstraints);
-        buttonEquisCubica.setBackground(new Color(91, 86, 85));
+        buttonEquisCubica.setBackground(new Color(95,100,104));
+        buttonEquisCubica.setForeground(new Color(255,255,255));
 
         calculadoraGridConstraints.gridx = 3;
         calculadoraGridConstraints.gridy = 2;
         pane.add(buttonEquisY, calculadoraGridConstraints);
-        buttonEquisY.setBackground(new Color(91, 86, 85));
+        buttonEquisY.setBackground(new Color(95,100,104));
+        buttonEquisY.setForeground(new Color(255,255,255));
 
         calculadoraGridConstraints.gridx = 4;
         calculadoraGridConstraints.gridy = 2;
         pane.add(buttonEalaX, calculadoraGridConstraints);
-        buttonEalaX.setBackground(new Color(91, 86, 85));
+        buttonEalaX.setBackground(new Color(95,100,104));
+        buttonEalaX.setForeground(new Color(255,255,255));
 
         calculadoraGridConstraints.gridx = 5;
         calculadoraGridConstraints.gridy = 2;
         pane.add(button10alaX, calculadoraGridConstraints);
-        button10alaX.setBackground(new Color(91, 86, 85));
+        button10alaX.setBackground(new Color(95,100,104));
+        button10alaX.setForeground(new Color(255,255,255));
 
         //bloque 3
         calculadoraGridConstraints.gridx = 0;
         calculadoraGridConstraints.gridy = 3;
         pane.add(button1sobreX, calculadoraGridConstraints);
-        button1sobreX.setBackground(new Color(91, 86, 85));
+        button1sobreX.setBackground(new Color(95,100,104));
+        button1sobreX.setForeground(new Color(255,255,255));
 
         calculadoraGridConstraints.gridx = 1;
         calculadoraGridConstraints.gridy = 3;
         pane.add(buttonRaizCuadrada, calculadoraGridConstraints);
-        buttonRaizCuadrada.setBackground(new Color(91, 86, 85));
+        buttonRaizCuadrada.setBackground(new Color(95,100,104));
+        buttonRaizCuadrada.setForeground(new Color(255,255,255));
 
         calculadoraGridConstraints.gridx = 2;
         calculadoraGridConstraints.gridy = 3;
         pane.add(buttonRaizCubica, calculadoraGridConstraints);
-        buttonRaizCubica.setBackground(new Color(91, 86, 85));
+        buttonRaizCubica.setBackground(new Color(95,100,104));
+        buttonRaizCubica.setForeground(new Color(255,255,255));
 
         calculadoraGridConstraints.gridx = 3;
         calculadoraGridConstraints.gridy = 3;
         pane.add(buttonRaizdeY, calculadoraGridConstraints);
-        buttonRaizdeY.setBackground(new Color(91, 86, 85));
+        buttonRaizdeY.setBackground(new Color(95,100,104));
+        buttonRaizdeY.setForeground(new Color(255,255,255));
 
         calculadoraGridConstraints.gridx = 4;
         calculadoraGridConstraints.gridy = 3;
         pane.add(buttonLogNatural, calculadoraGridConstraints);
-        buttonLogNatural.setBackground(new Color(91, 86, 85));
+        buttonLogNatural.setBackground(new Color(95,100,104));
+        buttonLogNatural.setForeground(new Color(255,255,255));
 
         calculadoraGridConstraints.gridx = 5;
         calculadoraGridConstraints.gridy = 3;
         pane.add(buttonLogBase10, calculadoraGridConstraints);
-        buttonLogBase10.setBackground(new Color(91, 86, 85));
+        buttonLogBase10.setBackground(new Color(95,100,104));
+        buttonLogBase10.setForeground(new Color(255,255,255));
 
         //bloque 4
         calculadoraGridConstraints.gridx = 0;
         calculadoraGridConstraints.gridy = 4;
         pane.add(buttonFactorial, calculadoraGridConstraints);
-        buttonFactorial.setBackground(new Color(91, 86, 85));
+        buttonFactorial.setBackground(new Color(95,100,104));
+        buttonFactorial.setForeground(new Color(255,255,255));
 
         calculadoraGridConstraints.gridx = 1;
         calculadoraGridConstraints.gridy = 4;
         pane.add(buttonSeno, calculadoraGridConstraints);
-        buttonSeno.setBackground(new Color(91, 86, 85));
+        buttonSeno.setBackground(new Color(95,100,104));
+        buttonSeno.setForeground(new Color(255,255,255));
 
         calculadoraGridConstraints.gridx = 2;
         calculadoraGridConstraints.gridy = 4;
         pane.add(buttonCoseno, calculadoraGridConstraints);
-        buttonCoseno.setBackground(new Color(91, 86, 85));
+        buttonCoseno.setBackground(new Color(95,100,104));
+        buttonCoseno.setForeground(new Color(255,255,255));
 
         calculadoraGridConstraints.gridx = 3;
         calculadoraGridConstraints.gridy = 4;
         pane.add(buttonTangente, calculadoraGridConstraints);
-        buttonTangente.setBackground(new Color(91, 86, 85));
+        buttonTangente.setBackground(new Color(95,100,104));
+        buttonTangente.setForeground(new Color(255,255,255));
 
         calculadoraGridConstraints.gridx = 4;
         calculadoraGridConstraints.gridy = 4;
         pane.add(buttonE, calculadoraGridConstraints);
-        buttonE.setBackground(new Color(91, 86, 85));
+        buttonE.setBackground(new Color(95,100,104));
+        buttonE.setForeground(new Color(255,255,255));
 
         //bloque 5
-        calculadoraGridConstraints.gridx = 4;
-        calculadoraGridConstraints.gridy = 5;
+        calculadoraGridConstraints.gridx = 5;
+        calculadoraGridConstraints.gridy = 4;
         pane.add(buttonPi, calculadoraGridConstraints);
-        buttonPi.setBackground(new Color(91, 86, 85));
+        buttonPi.setBackground(new Color(95,100,104));
+        buttonPi.setForeground(new Color(255,255,255));
+        display.setBackground(new Color(95,100,104	));
+        display.setForeground(new Color(255,255,255));
+        cientifica.setBackground(new Color(63,62,68));
     }
 
-    protected void buildMenu(){
+    protected void buildMenu() {
         //Create the menu bar.
         JMenuBar menuBar = new JMenuBar();
 
@@ -760,6 +790,8 @@ public class VentanaCalculadora extends JFrame {
             return calculadora.calculate(operador, valores);
         } catch (DivZeroException e) {
             JOptionPane.showMessageDialog(this, "Syntax Error", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (TandeNoventa e){
+            JOptionPane.showMessageDialog(this, "Math Error", "Error", JOptionPane.ERROR_MESSAGE);
         }
         return 0.0;
     }
