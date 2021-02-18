@@ -1,6 +1,7 @@
 package mx.ipn.upiicsa.poo.bs;
 
 import mx.ipn.upiicsa.poo.exception.DivZeroException;
+import mx.ipn.upiicsa.poo.exception.TandeNoventa;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class Calculadora {
     public static final int OPERATOR_LOG10 = 19;
     public static final int OPERATOR_TAN = 20;
 
-    public Double calculate(int operator, List<Double> operands) throws DivZeroException {
+    public Double calculate(int operator, List<Double> operands) throws DivZeroException, TandeNoventa {
         double resultado;
         switch (operator) {
             case OPERATOR_SUMA:
@@ -45,7 +46,6 @@ public class Calculadora {
                 resultado = porcentaje(operands);
                 break;
             case OPERATOR_SENO:
-                System.out.println("---> valor de operand" + operands.get(0));
                 resultado = seno(operands);
                 break;
             case OPERATOR_COSENO:
@@ -129,10 +129,8 @@ public class Calculadora {
     }
 
     public double porcentaje(List<Double> values) {
-        double resultado = 0.0;
-        for (Double value : values) {
-            resultado = porcentaje(resultado, value);
-        }
+        double resultado;
+        resultado = porcentaje(values.get(0), values.get(1));
         return resultado;
     }
 
@@ -249,8 +247,11 @@ public class Calculadora {
         return resultado;
     }
 
-    public double tan(List<Double> numbers) {
+    public double tan(List<Double> numbers) throws TandeNoventa {
         double resultado;
+        if (numbers.get(0) == 90) {
+            throw new TandeNoventa();
+        }
         resultado = Math.tan(numbers.get(0));
         return resultado;
     }

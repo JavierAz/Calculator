@@ -24,7 +24,6 @@ public class VentanaCalculadora extends JFrame {
     protected static final String PUNTO = ".";
     protected static final Double E = Math.E;
     protected static final Double PI = Math.PI;
-    protected static final String EMPTY_STRING = "";
 
     protected static final int STATE_INIT = 0;
     protected static final int STATE_CAPTURE = 1;
@@ -32,14 +31,8 @@ public class VentanaCalculadora extends JFrame {
     protected static final int STATE_CALCULATE = 3;
     protected int state;
 
-    protected static final int ACTION_NUMBER = 0;
-    protected static final int ACTION_OPERATOR = 1;
-    protected static final int ACTION_EQUAL = 2;
-    protected static final int ACTION_CLEAN = 3;
-
     protected Integer operador;
     protected List<Double> valores;
-    protected Double resultado;
     protected Calculadora calculadora;
 
     protected JMenuItem menu;
@@ -198,7 +191,7 @@ public class VentanaCalculadora extends JFrame {
         buttonProducto.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                capturarOperador(calculadora.OPERATOR_MULTIPLICACION);
+                capturarOperador(Calculadora.OPERATOR_MULTIPLICACION);
             }
         });
         buttonDivision.addActionListener(new ActionListener() {
@@ -217,27 +210,24 @@ public class VentanaCalculadora extends JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 clickEquals();
+                state=STATE_INIT;
             }
         });
         buttonSeno.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                //capturarOperador(calculadoraCientifica.OPERATOR_SENO);
                 valores.add(Double.valueOf(display.getText()));
                 setOperador(calculadora.OPERATOR_SENO);
                 state = STATE_CAPTURE;
-                //System.out.println("listener seno " +valores+" ");
                 clickEquals();
             }
         });
         buttonFactorial.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                //capturarOperador(calculadoraCientifica.OPERATOR_SENO);
                 valores.add(Double.valueOf(display.getText()));
                 setOperador(calculadora.OPERATOR_FACTORIAL);
                 state = STATE_CAPTURE;
-                //System.out.println("listener seno " +valores+" ");
                 clickEquals();
             }
         });
@@ -258,33 +248,27 @@ public class VentanaCalculadora extends JFrame {
         buttonCoseno.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                //capturarOperador(calculadoraCientifica.OPERATOR_SENO);
                 valores.add(Double.valueOf(display.getText()));
                 setOperador(calculadora.OPERATOR_COSENO);
                 state = STATE_CAPTURE;
-                //System.out.println("listener seno " +valores+" ");
                 clickEquals();
             }
         });
         buttonEquisCuadrada.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                //capturarOperador(calculadoraCientifica.OPERATOR_SENO);
                 valores.add(Double.valueOf(display.getText()));
                 setOperador(calculadora.OPERATOR_CUADRADO);
                 state = STATE_CAPTURE;
-                //System.out.println("listener seno " +valores+" ");
                 clickEquals();
             }
         });
         buttonEquisCubica.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                //capturarOperador(calculadoraCientifica.OPERATOR_SENO);
                 valores.add(Double.valueOf(display.getText()));
                 setOperador(calculadora.OPERATOR_CUBO);
                 state = STATE_CAPTURE;
-                //System.out.println("listener seno " +valores+" ");
                 clickEquals();
             }
         });
@@ -300,29 +284,24 @@ public class VentanaCalculadora extends JFrame {
                 valores.add(Double.valueOf(display.getText()));
                 setOperador(calculadora.OPERATOR_EALAX);
                 state = STATE_CAPTURE;
-                //System.out.println("listener seno " +valores+" ");
                 clickEquals();
             }
         });
         button10alaX.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                //capturarOperador(calculadoraCientifica.OPERATOR_SENO);
                 valores.add(Double.valueOf(display.getText()));
                 setOperador(calculadora.OPERATOR_10ALAX);
                 state = STATE_CAPTURE;
-                //System.out.println("listener seno " +valores+" ");
                 clickEquals();
             }
         });
         button1sobreX.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                //capturarOperador(calculadoraCientifica.OPERATOR_SENO);
                 valores.add(Double.valueOf(display.getText()));
                 setOperador(calculadora.OPERATOR_1SOBREX);
                 state = STATE_CAPTURE;
-                //System.out.println("listener seno " +valores+" ");
                 clickEquals();
             }
         });
@@ -455,7 +434,6 @@ public class VentanaCalculadora extends JFrame {
         calculadoraGridConstraints.gridy = 0;
         calculadoraGridConstraints.gridwidth = 40;
 
-        calculadoraGridConstraints.gridx = 0;
         calculadoraGridConstraints.gridy = 1;
         calculadoraGridConstraints.gridwidth = 2;
         pane.add(buttonClear, calculadoraGridConstraints);
@@ -729,10 +707,6 @@ public class VentanaCalculadora extends JFrame {
         display.setText(valorActual + valor);
     }
 
-    public void limpiarDisplay() {
-        display.setText(EMPTY_STRING);
-    }
-
     protected void capturarNumero(String numero) {
         if (state == STATE_INIT) {
             display.setText("");
@@ -812,21 +786,5 @@ public class VentanaCalculadora extends JFrame {
 
     public void setOperador(Integer operador) {
         this.operador = operador;
-    }
-
-    public List<Double> getValores() {
-        return valores;
-    }
-
-    public void setValores(List<Double> valores) {
-        this.valores = valores;
-    }
-
-    public Double getResultado() {
-        return resultado;
-    }
-
-    public void setResultado(Double resultado) {
-        this.resultado = resultado;
     }
 }
